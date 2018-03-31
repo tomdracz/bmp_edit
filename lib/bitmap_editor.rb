@@ -1,4 +1,7 @@
+require_relative "./bitmap"
+
 class BitmapEditor
+  attr_reader :bitmap
 
   def run(file)
     return puts "please provide correct file" if file.nil? || !File.exists?(file)
