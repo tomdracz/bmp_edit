@@ -25,26 +25,26 @@ class Bitmap
     @pixels = build_pixels
   end
 
-  def set_pixel_colour(row, column, colour)
-    unless row.is_a?(Integer) && row.between?(MIN_WIDTH, @width)
-      raise PixelOutOfBoundsError, "row specified must be between 1 and #{@width}"
+  def set_pixel_colour(column, row, colour)
+    unless column.is_a?(Integer) && column.between?(MIN_WIDTH, @width)
+      raise PixelOutOfBoundsError, "column specified must be between 1 and #{@width}"
     end
 
-    unless column.is_a?(Integer) && column.between?(MIN_HEIGHT, @width)
-      raise PixelOutOfBoundsError, "column specified must be between 1 and #{@height}"
+    unless row.is_a?(Integer) && row.between?(MIN_HEIGHT, @height)
+      raise PixelOutOfBoundsError, "row specified must be between 1 and #{@height}"
     end
 
     unless colour.is_a?(String) && /^[A-Z]$/.match(colour)
       raise InvalidColourError, "colour must be specified by a single capital letter"
     end
 
-    @pixels[row-1][column-1] = colour
+    @pixels[column-1][row-1] = colour
   end
 
   def draw_vertical_line(column, row_start, row_end, colour)
   end
 
-  def draw_horizontal_line(row, column_start, column_end, colour)
+  def draw_horizontal_line(column_start, column_end, row, colour)
   end
 
   def print_bitmap
