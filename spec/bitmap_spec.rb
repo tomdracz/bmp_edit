@@ -53,5 +53,11 @@ describe Bitmap do
         expect(subject.pixels).to eq(pixel_matrix)
       end
     end
+
+    describe "#set_pixel_colour" do
+      it "sets the colour of the pixel at specified coordinates"
+      it "raises an error if height is out of bounds"
+      it "raises an error if width is out of bounds"
+    end
   end
 end
