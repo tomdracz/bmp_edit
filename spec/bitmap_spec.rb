@@ -57,7 +57,7 @@ describe Bitmap do
     describe "#set_pixel_colour" do
       it "sets the colour of the pixel at specified coordinates" do
         subject.set_pixel_colour(2,3, "B")
-        expect(subject.pixels[2,3]).to eq("B")
+        expect(subject.pixels[1][2]).to eq("B")
       end
 
       it "raises an error if width is out of bounds" do

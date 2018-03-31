@@ -29,6 +29,11 @@ class Bitmap
   end
 
   def set_pixel_colour(row, column, colour)
+    raise PixelOutOfBoundsError, "row specified must be between 1 and #{@width}" unless row.is_a?(Integer) && row.between?(1, @width)
+    raise PixelOutOfBoundsError, "column specified must be between 1 and #{@height}" unless column.is_a?(Integer) && column.between?(1, @width)
+    raise InvalidColourError, "colour must be specified by a single capital letter" unless colour.is_a?(String) && (/^[A-Z]$/).match(colour)
+
+    @pixels[row-1][column-1] = colour
   end
 
   private
