@@ -77,11 +77,25 @@ describe Bitmap do
   end
 
   describe "#draw_vertical_line" do
+    it "draws a vertical segment in column x between rows y1 and y2 specified" do
+      subject.draw_vertical_line(3, 1, 3, "F")
+      expect(subject.pixels[2][0]).to eq("F")
+      expect(subject.pixels[2][1]).to eq("F")
+      expect(subject.pixels[2][2]).to eq("F")
+    end
   end
 
   describe "#draw_horizontal_line" do
+    it "draws a horizontal segment in row y between columns y1 and y2 specified" do
+      subject.draw_horizontal_line(2, 5, 4, "M")
+      expect(subject.pixels[1][3]).to eq("M")
+      expect(subject.pixels[2][3]).to eq("M")
+      expect(subject.pixels[3][3]).to eq("M")
+      expect(subject.pixels[4][3]).to eq("M")
+    end
   end
 
   describe "#print_bitmap" do
+    it "outputs the current bitmap"
   end
 end

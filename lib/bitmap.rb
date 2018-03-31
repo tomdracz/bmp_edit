@@ -42,9 +42,15 @@ class Bitmap
   end
 
   def draw_vertical_line(column, row_start, row_end, colour)
+    (row_start..row_end).each do |row|
+      set_pixel_colour(column, row, colour)
+    end
   end
 
   def draw_horizontal_line(column_start, column_end, row, colour)
+    (column_start..column_end).each do |column|
+      set_pixel_colour(column, row, colour)
+    end
   end
 
   def print_bitmap
