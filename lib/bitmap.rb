@@ -6,7 +6,7 @@ class Bitmap
 
   attr_reader :width, :height, :pixels
 
-  def initialize(width, height)
+  def initialize(width:, height:)
     @width = width
     @height = height
 
@@ -25,31 +25,31 @@ class Bitmap
     @pixels = build_pixels
   end
 
-  def set_pixel_colour(column, row, colour)
-    unless column.is_a?(Integer) && column.between?(MIN_WIDTH, @width)
-      raise PixelOutOfBoundsError, "column specified must be between 1 and #{@width}"
+  def set_pixel_colour(x:, y:, colour:)
+    unless x.is_a?(Integer) && x.between?(MIN_WIDTH, @width)
+      raise PixelOutOfBoundsError, "x coordinate specified must be between 1 and #{@width}"
     end
 
-    unless row.is_a?(Integer) && row.between?(MIN_HEIGHT, @height)
-      raise PixelOutOfBoundsError, "row specified must be between 1 and #{@height}"
+    unless y.is_a?(Integer) && y.between?(MIN_HEIGHT, @height)
+      raise PixelOutOfBoundsError, "y coordinate specified must be between 1 and #{@height}"
     end
 
     unless colour.is_a?(String) && /^[A-Z]$/.match(colour)
       raise InvalidColourError, "colour must be specified by a single capital letter"
     end
 
-    @pixels[column-1][row-1] = colour
+    @pixels[x-1][y-1] = colour
   end
 
-  def draw_vertical_line(column, row_start, row_end, colour)
-    (row_start..row_end).each do |row|
-      set_pixel_colour(column, row, colour)
+  def draw_vertical_line(x:, y1:, y2:, colour:)
+    (y1..y2).each do |y|
+      set_pixel_colour(x: x, y: y, colour: colour)
     end
   end
 
-  def draw_horizontal_line(column_start, column_end, row, colour)
-    (column_start..column_end).each do |column|
-      set_pixel_colour(column, row, colour)
+  def draw_horizontal_line(x1:, x2:, y:, colour:)
+    (x1..x2).each do |x|
+      set_pixel_colour(x: x, y: y, colour: colour)
     end
   end
 

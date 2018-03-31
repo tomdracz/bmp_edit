@@ -28,7 +28,7 @@ class BitmapEditor
 
   private
 
-  def create_bitmap(width,height)
-    @bitmap = Bitmap.new(width.to_i, height.to_i)
+  def create_bitmap(width, height)
+    @bitmap = Bitmap.new(width: width.to_i, height: height.to_i)
   end
 end
