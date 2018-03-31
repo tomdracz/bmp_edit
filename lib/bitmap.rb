@@ -4,6 +4,12 @@ end
 class InvalidHeightError < StandardError
 end
 
+class PixelOutOfBoundsError < StandardError
+end
+
+class InvalidColourError < StandardError
+end
+
 
 class Bitmap
   attr_reader :width, :height, :pixels
@@ -20,6 +26,9 @@ class Bitmap
 
   def clear_pixels
     @pixels = build_pixels
+  end
+
+  def set_pixel_colour(row, column, colour)
   end
 
   private

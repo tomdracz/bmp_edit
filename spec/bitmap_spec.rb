@@ -55,9 +55,24 @@ describe Bitmap do
     end
 
     describe "#set_pixel_colour" do
-      it "sets the colour of the pixel at specified coordinates"
-      it "raises an error if height is out of bounds"
-      it "raises an error if width is out of bounds"
+      it "sets the colour of the pixel at specified coordinates" do
+        subject.set_pixel_colour(2,3, "B")
+        expect(subject.pixels[2,3]).to eq("B")
+      end
+
+      it "raises an error if width is out of bounds" do
+        expect { subject.set_pixel_colour(100, 3, "Z") }.to raise_error(PixelOutOfBoundsError)
+      end
+
+      it "raises an error if height is out of bounds" do
+        expect { subject.set_pixel_colour(2, 100, "Z") }.to raise_error(PixelOutOfBoundsError)
+      end
+
+      it "raises an error if colour is invalid" do
+        expect { subject.set_pixel_colour(2, 2, "foo") }.to raise_error(InvalidColourError)
+        expect { subject.set_pixel_colour(2, 2, nil) }.to raise_error(InvalidColourError)
+        expect { subject.set_pixel_colour(2, 2, []) }.to raise_error(InvalidColourError)
+      end
     end
   end
 end
