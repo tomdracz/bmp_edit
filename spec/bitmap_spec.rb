@@ -75,4 +75,13 @@ describe Bitmap do
       expect { subject.set_pixel_colour(2, 2, []) }.to raise_error(InvalidColourError)
     end
   end
+
+  describe "#draw_vertical_line" do
+  end
+
+  describe "#draw_horizontal_line" do
+  end
+
+  describe "#print_bitmap" do
+  end
 end

@@ -41,6 +41,15 @@ class Bitmap
     @pixels[row-1][column-1] = colour
   end
 
+  def draw_vertical_line(column, row_start, row_end, colour)
+  end
+
+  def draw_horizontal_line(row, column_start, column_end, colour)
+  end
+
+  def print_bitmap
+  end
+
   private
 
   def build_pixels
