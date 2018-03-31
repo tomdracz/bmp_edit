@@ -12,11 +12,23 @@ class BitmapEditor
   end
 
   def parse_input(input_line)
-    case line
-    when 'S'
+    case input_line
+    when /^I (\d+) (\d+)$/
+      create_bitmap(Regexp.last_match(1), Regexp.last_match(2))
+    when "C"
+    when /^L (\d+) (\d+) ([A-Z])$/
+    when /^V (\d+) (\d+) (\d+) ([A-Z])$/
+    when /^H (\d+) (\d+) (\d+) ([A-Z])$/
+    when "S"
       puts "There is no image"
     else
       puts 'unrecognised command :('
     end
+  end
+
+  private
+
+  def create_bitmap(width,height)
+    @bitmap = Bitmap.new(width.to_i, height.to_i)
   end
 end
