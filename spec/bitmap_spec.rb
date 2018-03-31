@@ -2,6 +2,8 @@ require_relative '../lib/bitmap'
 
 describe Bitmap do
   describe "#initialize" do
+    subject { described_class.new(5,4) }
+
     context "with valid arguments" do
       it "sets width and height of bitmap" do
         bitmap = described_class.new(2,2)
@@ -39,6 +41,16 @@ describe Bitmap do
         expect { described_class.new(134,"foo") }.to raise_error(InvalidHeightError)
         expect { described_class.new(120,[]) }.to raise_error(InvalidHeightError)
         expect { described_class.new(120,nil) }.to raise_error(InvalidHeightError)
+      end
+    end
+
+    describe "#clear_pixels" do
+      it "sets all pixels to 'O' " do
+        pixel_matrix = Array.new(subject.width) { Array.new(subject.height) { "O" } }
+        subject.pixels[1][2] = "R"
+        expect(subject.pixels).not_to eq(pixel_matrix)
+        subject.clear_pixels
+        expect(subject.pixels).to eq(pixel_matrix)
       end
     end
   end

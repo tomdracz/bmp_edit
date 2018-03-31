@@ -18,6 +18,9 @@ class Bitmap
     @pixels = build_pixels
   end
 
+  def clear_pixels
+  end
+
   private
 
   def build_pixels
