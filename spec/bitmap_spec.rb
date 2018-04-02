@@ -106,6 +106,15 @@ describe Bitmap do
         end.to raise_error(InvalidCoordinateError)
         expect(subject.pixels).to eq(initial_pixels)
       end
+
+    end
+
+    context "with invalid colour" do
+      it "raises an error about invalid colour" do
+        expect do
+          subject.draw_vertical_line(x: subject.width, y1: 1, y2: subject.height, colour: "foo")
+        end.to raise_error(InvalidColourError)
+      end
     end
   end
 
@@ -138,6 +147,14 @@ describe Bitmap do
           subject.draw_horizontal_line(x1: 1, x2: subject.width + 1, y: subject.height, colour: "F")
         end.to raise_error(InvalidCoordinateError)
         expect(subject.pixels).to eq(initial_pixels)
+      end
+    end
+
+    context "with invalid colour" do
+      it "raises an error about invalid colour specified" do
+        expect do
+          subject.draw_horizontal_line(x1: 1, x2: subject.width, y: 1, colour: "foo")
+        end.to raise_error(InvalidColourError)
       end
     end
   end
