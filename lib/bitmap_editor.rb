@@ -30,7 +30,7 @@ class BitmapEditor
     when "S"
       show_bitmap
     else
-      puts 'unrecognised command :('
+      unrecognised_command_error
     end
   end
 
@@ -42,6 +42,10 @@ class BitmapEditor
 
   def no_bitmap_error
     raise NoBitmapError, "no bitmap created yet"
+  end
+
+  def unrecognised_command_error
+    raise UnrecognisedCommandError, "command not valid"
   end
 
   def clear_bitmap
