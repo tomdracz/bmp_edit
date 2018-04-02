@@ -22,10 +22,13 @@ class BitmapEditor
     when "C"
       clear_bitmap
     when /^L (\d+) (\d+) ([A-Z])$/
+      colour_pixel(Regexp.last_match(1), Regexp.last_match(2), Regexp.last_match(3))
     when /^V (\d+) (\d+) (\d+) ([A-Z])$/
+      vertical_line(Regexp.last_match(1), Regexp.last_match(2), Regexp.last_match(3), Regexp.last_match(4))
     when /^H (\d+) (\d+) (\d+) ([A-Z])$/
+      horizontal_line(Regexp.last_match(1), Regexp.last_match(2), Regexp.last_match(3), Regexp.last_match(4))
     when "S"
-      puts "There is no image"
+      show_bitmap
     else
       puts 'unrecognised command :('
     end
@@ -48,17 +51,17 @@ class BitmapEditor
 
   def colour_pixel(x, y, colour)
     no_bitmap_error unless @bitmap
-    @bitmap.set_pixel_colour(x: x, y: y, colour: colour)
+    @bitmap.set_pixel_colour(x: x.to_i, y: y.to_i, colour: colour)
   end
 
   def vertical_line(x, y1, y2, colour)
     no_bitmap_error unless @bitmap
-    @bitmap.draw_vertical_line(x: x, y1: y1, y2: y2, colour: colour)
+    @bitmap.draw_vertical_line(x: x.to_i, y1: y1.to_i, y2: y2.to_i, colour: colour)
   end
 
   def horizontal_line(x1, x2, y, colour)
     no_bitmap_error unless @bitmap
-    @bitmap.draw_horizontal_line(x1: x1, x2: x2, y: y, colour: colour)
+    @bitmap.draw_horizontal_line(x1: x1.to_i, x2: x2.to_i, y: y.to_i, colour: colour)
   end
 
   def show_bitmap

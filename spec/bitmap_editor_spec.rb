@@ -1,7 +1,7 @@
 require_relative "../lib/bitmap_editor"
 
 describe BitmapEditor do
-  let(:bitmap) { Bitmap.new(width: 5, height: 5) }
+  let(:bitmap) { Bitmap.new(width: 5, height: 6) }
   subject { described_class.new(bitmap) }
 
   describe "#parse_input" do
