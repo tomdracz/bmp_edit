@@ -16,8 +16,8 @@ S - Show the contents of the current image
 bin/bitmap_editor examples/show.txt
 ```
 
-## Running
+## Tests
 
 ```bash
-bin/bitmap_editor examples/show.txt
+bundle exec rspec
 ```
