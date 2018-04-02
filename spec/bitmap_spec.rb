@@ -63,11 +63,11 @@ describe Bitmap do
     end
 
     it "raises an error if width is out of bounds" do
-      expect { subject.set_pixel_colour(x: 100, y: 3, colour: "Z") }.to raise_error(InvalidCoordinatesError)
+      expect { subject.set_pixel_colour(x: 100, y: 3, colour: "Z") }.to raise_error(InvalidCoordinateError)
     end
 
     it "raises an error if height is out of bounds" do
-      expect { subject.set_pixel_colour(x: 2, y: 100, colour: "Z") }.to raise_error(InvalidCoordinatesError)
+      expect { subject.set_pixel_colour(x: 2, y: 100, colour: "Z") }.to raise_error(InvalidCoordinateError)
     end
 
     it "raises an error if colour is invalid" do
@@ -91,19 +91,19 @@ describe Bitmap do
       it "raises an error if specified coordinates are out of bounds" do
         expect do
           subject.draw_vertical_line(x: subject.width, y1: 1, y2: subject.height + 1, colour: "F")
-        end.to raise_error(InvalidCoordinatesError)
+        end.to raise_error(InvalidCoordinateError)
       end
 
       it "raises an error if coordinates are in the wrong order" do
         expect do
           subject.draw_vertical_line(x: 2, y1: 3, y2: 1, colour: "F")
-        end.to raise_error(InvalidCoordinatesError)
+        end.to raise_error(InvalidCoordinateError)
       end
 
       it "does not change the pixel colours" do
         expect do
           subject.draw_vertical_line(x: 2, y1: 3, y2: subject.height + 1, colour: "F")
-        end.to raise_error(InvalidCoordinatesError)
+        end.to raise_error(InvalidCoordinateError)
         expect(subject.pixels).to eq(initial_pixels)
       end
     end
@@ -124,19 +124,19 @@ describe Bitmap do
       it "raises an error if specified coordinates are out of bounds" do
         expect do
           subject.draw_horizontal_line(x1: 1, x2: subject.width + 1, y: subject.height, colour: "F")
-        end.to raise_error(InvalidCoordinatesError)
+        end.to raise_error(InvalidCoordinateError)
       end
 
       it "raises an error if coordinates are in the wrong order" do
         expect do
           subject.draw_horizontal_line(x1: 3, x2: 1, y: 1, colour: "F")
-        end.to raise_error(InvalidCoordinatesError)
+        end.to raise_error(InvalidCoordinateError)
       end
 
       it "does not change the pixel colours" do
         expect do
           subject.draw_horizontal_line(x1: 1, x2: subject.width + 1, y: subject.height, colour: "F")
-        end.to raise_error(InvalidCoordinatesError)
+        end.to raise_error(InvalidCoordinateError)
         expect(subject.pixels).to eq(initial_pixels)
       end
     end

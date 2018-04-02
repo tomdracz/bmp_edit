@@ -4,7 +4,7 @@ end
 class InvalidHeightError < StandardError
 end
 
-class InvalidCoordinatesError < StandardError
+class InvalidCoordinateError < StandardError
 end
 
 class InvalidColourError < StandardError
