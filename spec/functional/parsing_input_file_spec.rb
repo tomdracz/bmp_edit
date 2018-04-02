@@ -37,7 +37,7 @@ describe "parsing input file" do
   context "using an unrecognised command" do
     let(:command_file) { File.expand_path("../fixtures/unrecognised_commands_example.txt", __dir__) }
 
-    it "prints the expected bitmap to stdout" do
+    it "prints the message about command not valid to stdout" do
       expect do
         bitmap_editor.run(command_file)
       end.to output(/command not valid/).to_stdout
