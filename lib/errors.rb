@@ -12,3 +12,6 @@ end
 
 class NoBitmapError < StandardError
 end
+
+class UnrecognisedCommandError < StandardError
+end

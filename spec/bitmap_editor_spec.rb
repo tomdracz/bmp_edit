@@ -78,7 +78,9 @@ describe BitmapEditor do
 
     context "with unrecognised command" do
       let(:command) { "foo"}
-      it "returns an error message about unrecognised command"
+      it "returns an error message about unrecognised command" do
+        expect { subject.parse_input(command) }.to raise_error(UnrecognisedCommandError)
+      end
     end
   end
 end
