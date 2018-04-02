@@ -48,17 +48,21 @@ class BitmapEditor
 
   def colour_pixel(x, y, colour)
     no_bitmap_error unless @bitmap
+    @bitmap.set_pixel_colour(x: x, y: y, colour: colour)
   end
 
   def vertical_line(x, y1, y2, colour)
     no_bitmap_error unless @bitmap
+    @bitmap.draw_vertical_line(x: x, y1: y1, y2: y2, colour: colour)
   end
 
   def horizontal_line(x1, x2, y, colour)
     no_bitmap_error unless @bitmap
+    @bitmap.draw_horizontal_line(x1: x1, x2: x2, y: y, colour: colour)
   end
 
   def show_bitmap
     no_bitmap_error unless @bitmap
+    @bitmap.print_bitmap
   end
 end
