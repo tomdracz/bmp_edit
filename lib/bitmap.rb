@@ -66,7 +66,7 @@ class Bitmap
   end
 
   def print_bitmap
-    print pixels.transpose.map(&:join).join("\n")
+    print(pixels.transpose.map(&:join).join("\n"))
   end
 
   private

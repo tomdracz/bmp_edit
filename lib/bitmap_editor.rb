@@ -8,10 +8,15 @@ class BitmapEditor
   end
 
   def run(file)
-    return puts "please provide correct file" if file.nil? || !File.exists?(file)
+    return print "Please provide correct file" if file.nil? || !File.exists?(file)
 
-    File.open(file).each do |line|
-      parse_input(line.chomp)
+    File.open(file).each_with_index do |line, line_number|
+      begin
+        parse_input(line.chomp)
+      rescue BitmapEditorError => e
+        print "Error on line number #{line_number + 1}: #{e.message}\n"
+        print "Command was \"#{line.chomp}\"\n"
+      end
     end
   end
 

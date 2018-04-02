@@ -1,17 +1,20 @@
-class InvalidWidthError < StandardError
+class BitmapEditorError < StandardError
 end
 
-class InvalidHeightError < StandardError
+class InvalidWidthError < BitmapEditorError
 end
 
-class InvalidCoordinateError < StandardError
+class InvalidHeightError < BitmapEditorError
 end
 
-class InvalidColourError < StandardError
+class InvalidCoordinateError < BitmapEditorError
 end
 
-class NoBitmapError < StandardError
+class InvalidColourError < BitmapEditorError
 end
 
-class UnrecognisedCommandError < StandardError
+class NoBitmapError < BitmapEditorError
+end
+
+class UnrecognisedCommandError < BitmapEditorError
 end
