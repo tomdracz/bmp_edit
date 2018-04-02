@@ -6,8 +6,9 @@ describe BitmapEditor do
 
   describe "#parse_input" do
     context "with I command" do
+      let(:bitmap) { nil }
+
       it "creates bitmap of specified width and height" do
-        subject.bitmap = nil
         expect(subject).to receive(:create_bitmap).with("5", "6").and_call_original
         subject.parse_input("I 5 6")
         expect(subject.bitmap.width).not_to be_nil

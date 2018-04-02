@@ -1,7 +1,7 @@
 require_relative "./bitmap"
 
 class BitmapEditor
-  attr_accessor :bitmap
+  attr_reader :bitmap
 
   def initialize(bitmap = nil)
     @bitmap = bitmap
