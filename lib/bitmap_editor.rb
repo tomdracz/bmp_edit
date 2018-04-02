@@ -3,12 +3,12 @@ require_relative "./bitmap"
 class BitmapEditor
   attr_accessor :bitmap
 
-  def initialize(bitmap=nil)
+  def initialize(bitmap = nil)
     @bitmap = bitmap
   end
 
   def run(file)
-    return print "Please provide correct file" if file.nil? || !File.exists?(file)
+    return print "Please provide correct file" if file.nil? || !File.exist?(file)
 
     File.open(file).each_with_index do |line, line_number|
       begin

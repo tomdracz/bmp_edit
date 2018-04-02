@@ -34,7 +34,7 @@ class Bitmap
       raise InvalidColourError, "colour must be specified by a single capital letter"
     end
 
-    @pixels[x-1][y-1] = colour
+    @pixels[x - 1][y - 1] = colour
   end
 
   def draw_vertical_line(x:, y1:, y2:, colour:)
@@ -93,16 +93,16 @@ class Bitmap
 
   def vertical_line_coordinates_valid?(x:, y1:, y2:)
     x_coordinate_valid?(x: x) &&
-    y_coordinate_valid?(y: y1) &&
-    y_coordinate_valid?(y: y2) &&
-    y1 <= y2
+      y_coordinate_valid?(y: y1) &&
+      y_coordinate_valid?(y: y2) &&
+      y1 <= y2
   end
 
   def horizontal_line_coordinates_valid?(x1:, x2:, y:)
     x_coordinate_valid?(x: x1) &&
-    x_coordinate_valid?(x: x2) &&
-    y_coordinate_valid?(y: y) &&
-    x1 <= x2
+      x_coordinate_valid?(x: x2) &&
+      y_coordinate_valid?(y: y) &&
+      x1 <= x2
   end
 
   def build_pixels

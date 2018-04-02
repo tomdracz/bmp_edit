@@ -22,58 +22,43 @@ describe BitmapEditor do
         expect(subject).to receive(:clear_bitmap).and_call_original
         subject.parse_input(command)
       end
-      it "returns an error if there is no bitmap" do
-        subject.bitmap = nil
-        expect { subject.parse_input(command) }.to raise_error(NoBitmapError)
-      end
+      it_should_behave_like "a method requiring bitmap"
     end
 
     context "with L command" do
-      let(:command) { "L 1 3 A"}
+      let(:command) { "L 1 3 A" }
       it "calls the command to colour the pixel at specified coordinates" do
         expect(subject).to receive(:colour_pixel).and_call_original
         subject.parse_input(command)
       end
-      it "returns an error if there is no bitmap" do
-        subject.bitmap = nil
-        expect { subject.parse_input(command) }.to raise_error(NoBitmapError)
-      end
+      it_should_behave_like "a method requiring bitmap"
     end
 
     context "with V command" do
-      let(:command) { "V 2 3 6 W"}
+      let(:command) { "V 2 3 6 W" }
       it "calls the command to draw a vertical line of specified colour between given coordinates" do
         expect(subject).to receive(:vertical_line).with("2", "3", "6", "W").and_call_original
         subject.parse_input(command)
       end
-      it "returns an error if there is no bitmap" do
-        subject.bitmap = nil
-        expect { subject.parse_input(command) }.to raise_error(NoBitmapError)
-      end
+      it_should_behave_like "a method requiring bitmap"
     end
 
     context "with H command" do
-      let(:command) { "H 3 5 2 Z"}
+      let(:command) { "H 3 5 2 Z" }
       it "calls the command to draw a vertical line of specified colour between given coordinates" do
         expect(subject).to receive(:horizontal_line).with("3", "5", "2", "Z").and_call_original
         subject.parse_input(command)
       end
-      it "returns an error if there is no bitmap" do
-        subject.bitmap = nil
-        expect { subject.parse_input(command) }.to raise_error(NoBitmapError)
-      end
+      it_should_behave_like "a method requiring bitmap"
     end
 
     context "with S command" do
-      let(:command) { "S"}
+      let(:command) { "S" }
       it "calls the command to output the contents of the current image" do
         expect(subject).to receive(:show_bitmap).and_call_original
         subject.parse_input(command)
       end
-      it "returns an error if there is no bitmap" do
-        subject.bitmap = nil
-        expect { subject.parse_input(command) }.to raise_error(NoBitmapError)
-      end
+      it_should_behave_like "a method requiring bitmap"
     end
 
     context "with unrecognised command" do

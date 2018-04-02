@@ -1,11 +1,11 @@
-require_relative '../../lib/bitmap_editor'
+require_relative "../../lib/bitmap_editor"
 
-describe 'parsing input file' do
+describe "parsing input file" do
   let(:bitmap_editor) { BitmapEditor.new }
 
-  context 'parsing example command file' do
-    let(:command_file) { File.expand_path("../../fixtures/example_image_commands.txt", __FILE__) }
-    let(:result_file) { File.expand_path("../../fixtures/example_image_result.txt", __FILE__) }
+  context "parsing example command file" do
+    let(:command_file) { File.expand_path("../fixtures/example_image_commands.txt", __dir__) }
+    let(:result_file) { File.expand_path("../fixtures/example_image_result.txt", __dir__) }
 
     it "prints the expected bitmap to stdout" do
       expect do
@@ -14,8 +14,8 @@ describe 'parsing input file' do
     end
   end
 
-  context 'parsing a file with commands in incorrect order' do
-    let(:command_file) { File.expand_path("../../fixtures/incorrect_order_commands_example.txt", __FILE__) }
+  context "parsing a file with commands in incorrect order" do
+    let(:command_file) { File.expand_path("../fixtures/incorrect_order_commands_example.txt", __dir__) }
 
     it "prints the relevant error message to stdout" do
       expect do
@@ -24,8 +24,8 @@ describe 'parsing input file' do
     end
   end
 
-  context 'calling editor without a file' do
-    let(:command_file) { File.expand_path("../../fixtures/foobarbaz.txt", __FILE__) }
+  context "calling editor without a file" do
+    let(:command_file) { File.expand_path("../fixtures/foobarbaz.txt", __dir__) }
 
     it "prints the message about file missing to stdout" do
       expect do
@@ -34,8 +34,8 @@ describe 'parsing input file' do
     end
   end
 
-  context 'using an unrecognised command' do
-    let(:command_file) { File.expand_path("../../fixtures/unrecognised_commands_example.txt", __FILE__) }
+  context "using an unrecognised command" do
+    let(:command_file) { File.expand_path("../fixtures/unrecognised_commands_example.txt", __dir__) }
 
     it "prints the expected bitmap to stdout" do
       expect do
