@@ -27,11 +27,11 @@ class Bitmap
 
   def set_pixel_colour(x:, y:, colour:)
     unless x.is_a?(Integer) && x.between?(MIN_WIDTH, @width)
-      raise PixelOutOfBoundsError, "x coordinate specified must be between 1 and #{@width}"
+      raise InvalidCoordinatesError, "x coordinate specified must be between 1 and #{@width}"
     end
 
     unless y.is_a?(Integer) && y.between?(MIN_HEIGHT, @height)
-      raise PixelOutOfBoundsError, "y coordinate specified must be between 1 and #{@height}"
+      raise InvalidCoordinatesError, "y coordinate specified must be between 1 and #{@height}"
     end
 
     unless colour.is_a?(String) && /^[A-Z]$/.match(colour)

@@ -4,7 +4,7 @@ end
 class InvalidHeightError < StandardError
 end
 
-class PixelOutOfBoundsError < StandardError
+class InvalidCoordinatesError < StandardError
 end
 
 class InvalidColourError < StandardError
