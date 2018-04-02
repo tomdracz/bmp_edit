@@ -143,6 +143,15 @@ describe Bitmap do
   end
 
   describe "#print_bitmap" do
-    it "outputs the current bitmap"
+    it "outputs the current bitmap" do
+      result = <<~HEREDOC
+        OOOOO
+        OOOOO
+        OOOOO
+        OOOOO
+      HEREDOC
+
+      expect { subject.print_bitmap }.to output(result.chomp).to_stdout
+    end
   end
 end
