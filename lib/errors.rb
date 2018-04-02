@@ -9,3 +9,6 @@ end
 
 class InvalidColourError < StandardError
 end
+
+class NoBitmapError < StandardError
+end
