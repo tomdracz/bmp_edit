@@ -3,10 +3,10 @@ require_relative "../lib/bitmap_editor"
 describe BitmapEditor do
   subject { described_class.new }
 
-  describe '#initialize' do
+  describe "#initialize" do
     let(:bitmap) { double("bmp") }
 
-    it 'accepts bitmap as an argument' do
+    it "accepts bitmap as an argument" do
       instance = described_class.new(bitmap)
       expect(instance.bitmap).to eq(bitmap)
     end

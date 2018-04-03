@@ -1,6 +1,16 @@
 require_relative "./bitmap"
 
 class Parser
+  extend Forwardable
+
+  def_delegator :Bitmap, :new, :create_bitmap
+  def_delegators :@bitmap,
+    :clear_pixels,
+    :set_pixel_colour,
+    :draw_vertical_line,
+    :draw_horizontal_line,
+    :print_bitmap
+
   attr_reader :bitmap
 
   def initialize(bitmap = nil)
@@ -10,17 +20,44 @@ class Parser
   def parse_input(input_line)
     case input_line
     when /^I (\d+) (\d+)$/
-      create_bitmap(*Regexp.last_match.captures)
+      @bitmap = create_bitmap(
+        width: Regexp.last_match[1].to_i,
+        height: Regexp.last_match(2).to_i
+      )
     when "C"
-      clear_bitmap
+      no_bitmap_error unless @bitmap
+
+      clear_pixels
     when /^L (\d+) (\d+) ([A-Z])$/
-      colour_pixel(*Regexp.last_match.captures)
+      no_bitmap_error unless @bitmap
+
+      set_pixel_colour(
+        x: Regexp.last_match(1).to_i,
+        y: Regexp.last_match(2).to_i,
+        colour: Regexp.last_match(3)
+      )
     when /^V (\d+) (\d+) (\d+) ([A-Z])$/
-      vertical_line(*Regexp.last_match.captures)
+      no_bitmap_error unless @bitmap
+
+      draw_vertical_line(
+        x: Regexp.last_match(1).to_i,
+        y1: Regexp.last_match(2).to_i,
+        y2: Regexp.last_match(3).to_i,
+        colour: Regexp.last_match(4)
+      )
     when /^H (\d+) (\d+) (\d+) ([A-Z])$/
-      horizontal_line(*Regexp.last_match.captures)
+      no_bitmap_error unless @bitmap
+
+      draw_horizontal_line(
+        x1: Regexp.last_match(1).to_i,
+        x2: Regexp.last_match(2).to_i,
+        y: Regexp.last_match(3).to_i,
+        colour: Regexp.last_match(4)
+      )
     when "S"
-      show_bitmap
+      no_bitmap_error unless @bitmap
+
+      print_bitmap
     else
       unrecognised_command_error
     end
@@ -29,40 +66,11 @@ class Parser
 
   private
 
-  def create_bitmap(width, height)
-    @bitmap = Bitmap.new(width: width.to_i, height: height.to_i)
-  end
-
   def no_bitmap_error
     raise NoBitmapError, "no bitmap created yet"
   end
 
   def unrecognised_command_error
     raise UnrecognisedCommandError, "command not valid"
-  end
-
-  def clear_bitmap
-    no_bitmap_error unless @bitmap
-    @bitmap.clear_pixels
-  end
-
-  def colour_pixel(x, y, colour)
-    no_bitmap_error unless @bitmap
-    @bitmap.set_pixel_colour(x: x.to_i, y: y.to_i, colour: colour)
-  end
-
-  def vertical_line(x, y1, y2, colour)
-    no_bitmap_error unless @bitmap
-    @bitmap.draw_vertical_line(x: x.to_i, y1: y1.to_i, y2: y2.to_i, colour: colour)
-  end
-
-  def horizontal_line(x1, x2, y, colour)
-    no_bitmap_error unless @bitmap
-    @bitmap.draw_horizontal_line(x1: x1.to_i, x2: x2.to_i, y: y.to_i, colour: colour)
-  end
-
-  def show_bitmap
-    no_bitmap_error unless @bitmap
-    @bitmap.print_bitmap
   end
 end

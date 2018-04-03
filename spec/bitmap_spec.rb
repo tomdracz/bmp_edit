@@ -106,7 +106,6 @@ describe Bitmap do
         end.to raise_error(InvalidCoordinateError)
         expect(subject.pixels).to eq(initial_pixels)
       end
-
     end
 
     context "with invalid colour" do
