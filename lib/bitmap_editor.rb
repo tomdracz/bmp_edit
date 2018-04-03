@@ -23,15 +23,15 @@ class BitmapEditor
   def parse_input(input_line)
     case input_line
     when /^I (\d+) (\d+)$/
-      create_bitmap(Regexp.last_match(1), Regexp.last_match(2))
+      create_bitmap(*Regexp.last_match.captures)
     when "C"
       clear_bitmap
     when /^L (\d+) (\d+) ([A-Z])$/
-      colour_pixel(Regexp.last_match(1), Regexp.last_match(2), Regexp.last_match(3))
+      colour_pixel(*Regexp.last_match.captures)
     when /^V (\d+) (\d+) (\d+) ([A-Z])$/
-      vertical_line(Regexp.last_match(1), Regexp.last_match(2), Regexp.last_match(3), Regexp.last_match(4))
+      vertical_line(*Regexp.last_match.captures)
     when /^H (\d+) (\d+) (\d+) ([A-Z])$/
-      horizontal_line(Regexp.last_match(1), Regexp.last_match(2), Regexp.last_match(3), Regexp.last_match(4))
+      horizontal_line(*Regexp.last_match.captures)
     when "S"
       show_bitmap
     else
