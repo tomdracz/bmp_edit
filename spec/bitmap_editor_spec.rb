@@ -1,107 +1,56 @@
 require_relative "../lib/bitmap_editor"
 
 describe BitmapEditor do
-  subject { described_class.new(bitmap) }
-  let(:bitmap) { double("bmp") }
+  subject { described_class.new }
 
-  describe "#parse_input" do
-    context "with I command" do
-      let(:bitmap) { nil }
+  describe '#initialize' do
+    let(:bitmap) { double("bmp") }
 
-      it "creates bitmap of specified width and height" do
-        expect(subject).to receive(:create_bitmap).with("5", "6").and_call_original
-        subject.parse_input("I 5 6")
-        expect(subject.bitmap.width).not_to be_nil
-        expect(subject.bitmap.width).to eq(5)
-        expect(subject.bitmap.height).to eq(6)
+    it 'accepts bitmap as an argument' do
+      instance = described_class.new(bitmap)
+      expect(instance.bitmap).to eq(bitmap)
+    end
+  end
+
+  describe "#run" do
+    context "without input file supplied" do
+      it "print an error message to stdout" do
+        expect { subject.run(nil) }.to output(/Please provide correct file/).to_stdout
       end
     end
 
-    context "with C command" do
-      let(:command) { "C" }
-
-      it "calls the command to clear bitmap to its initial state" do
-        expect(subject).to receive(:clear_bitmap)
-        subject.parse_input(command)
+    context "with invalid file path supplied" do
+      it "print an error message to stdout" do
+        allow(File).to receive(:exist?).and_return(false)
+        expect { subject.run("FOO") }.to output(/Please provide correct file/).to_stdout
       end
-
-      it "routes the clear call to bitmap" do
-        expect(bitmap).to receive(:clear_pixels)
-        subject.parse_input(command)
-      end
-
-      it_should_behave_like "a method requiring bitmap"
     end
 
-    context "with L command" do
-      let(:command) { "L 1 3 A" }
+    context "with correct file" do
+      let(:parser_double) { instance_double("Parser", bitmap: "foo") }
+      let(:test_command) { "I 25 25" }
 
-      it "calls the command to colour the pixel at specified coordinates" do
-        expect(subject).to receive(:colour_pixel)
-        subject.parse_input(command)
+      before do
+        allow(File).to receive(:exist?).and_return(true)
+        allow(File).to receive(:open).and_return([test_command])
       end
 
-      it "routes the colour pixel call to bitmap" do
-        expect(bitmap).to receive(:set_pixel_colour).with(x: 1, y: 3, colour: "A")
-        subject.parse_input(command)
+      it "passes the command to parser instance" do
+        allow(Parser).to receive(:new).and_return(parser_double)
+        allow(parser_double).to receive(:parse_input).and_return(parser_double)
+
+        subject.run("FOO")
+        expect(parser_double).to have_received(:parse_input).with(test_command)
       end
 
-      it_should_behave_like "a method requiring bitmap"
-    end
-
-    context "with V command" do
-      let(:command) { "V 2 3 6 W" }
-
-      it "calls the command to draw a vertical line of specified colour between given coordinates" do
-        expect(subject).to receive(:vertical_line).with("2", "3", "6", "W")
-        subject.parse_input(command)
+      it "prints the error if exception occur" do
+        allow(Parser).to receive(:new).and_raise(BitmapEditorError)
+        expect { subject.run("FOO") }.to output(/Error on line number/).to_stdout
       end
 
-      it "routes the draw vertical line call to bitmap" do
-        expect(bitmap).to receive(:draw_vertical_line).with(x: 2, y1: 3, y2: 6, colour: "W")
-        subject.parse_input(command)
-      end
-
-      it_should_behave_like "a method requiring bitmap"
-    end
-
-    context "with H command" do
-      let(:command) { "H 3 5 2 Z" }
-
-      it "calls the command to draw a vertical line of specified colour between given coordinates" do
-        expect(subject).to receive(:horizontal_line).with("3", "5", "2", "Z")
-        subject.parse_input(command)
-      end
-
-      it "routes the draw horizontal line call to bitmap" do
-        expect(bitmap).to receive(:draw_horizontal_line).with(x1: 3, x2: 5, y: 2, colour: "Z")
-        subject.parse_input(command)
-      end
-
-      it_should_behave_like "a method requiring bitmap"
-    end
-
-    context "with S command" do
-      let(:command) { "S" }
-
-      it "calls the command to output the contents of the current image" do
-        expect(subject).to receive(:show_bitmap)
-        subject.parse_input(command)
-      end
-
-      it "routes the command to print the image to bitmap" do
-        expect(bitmap).to receive(:print_bitmap)
-        subject.parse_input(command)
-      end
-
-      it_should_behave_like "a method requiring bitmap"
-    end
-
-    context "with unrecognised command" do
-      let(:command) { "foo" }
-
-      it "returns an error message about unrecognised command" do
-        expect { subject.parse_input(command) }.to raise_error(UnrecognisedCommandError)
+      it "does not rescue unkown exceptions" do
+        allow(Parser).to receive(:new).and_raise(StandardError)
+        expect { subject.run("FOO") }.to raise_error(StandardError)
       end
     end
   end
