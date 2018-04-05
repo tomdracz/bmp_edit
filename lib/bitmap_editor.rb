@@ -13,8 +13,8 @@ class BitmapEditor
     File.open(file).each_with_index do |line, line_number|
       begin
         parser = Parser.new(@bitmap)
-        result = parser.parse_input(line.chomp)
-        @bitmap = result.bitmap if result.bitmap
+        command = parser.parse_input(line.chomp)
+        @bitmap = command.execute
       rescue BitmapEditorError => e
         print "Error on line number #{line_number + 1}: #{e.message}\n"
         print "Command was \"#{line.chomp}\"\n"

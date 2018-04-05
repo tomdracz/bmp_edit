@@ -1,17 +1,12 @@
-require "forwardable"
-require_relative "./bitmap"
+require_relative "./commands/command"
+require_relative "./commands/create_bitmap"
+require_relative "./commands/clear_pixels"
+require_relative "./commands/colour_pixel"
+require_relative "./commands/draw_horizontal_line"
+require_relative "./commands/draw_vertical_line"
+require_relative "./commands/show_bitmap"
 
 class Parser
-  extend Forwardable
-
-  def_delegator :Bitmap, :new, :create_bitmap
-  def_delegators :@bitmap,
-    :clear_pixels,
-    :set_pixel_colour,
-    :draw_vertical_line,
-    :draw_horizontal_line,
-    :print_bitmap
-
   attr_reader :bitmap
 
   def initialize(bitmap = nil)
@@ -21,55 +16,43 @@ class Parser
   def parse_input(input_line)
     case input_line
     when /^I (\d+) (\d+)$/
-      @bitmap = create_bitmap(
+      Commands::CreateBitmap.new(
         width: Regexp.last_match[1].to_i,
         height: Regexp.last_match(2).to_i
       )
     when "C"
-      no_bitmap_error unless @bitmap
-
-      clear_pixels
+      Commands::ClearPixels.new(bitmap: @bitmap)
     when /^L (\d+) (\d+) ([A-Z])$/
-      no_bitmap_error unless @bitmap
-
-      set_pixel_colour(
+      Commands::ColourPixel.new(
+        bitmap: @bitmap,
         x: Regexp.last_match(1).to_i,
         y: Regexp.last_match(2).to_i,
         colour: Regexp.last_match(3)
       )
     when /^V (\d+) (\d+) (\d+) ([A-Z])$/
-      no_bitmap_error unless @bitmap
-
-      draw_vertical_line(
+      Commands::DrawVerticalLine.new(
+        bitmap: @bitmap,
         x: Regexp.last_match(1).to_i,
         y1: Regexp.last_match(2).to_i,
         y2: Regexp.last_match(3).to_i,
         colour: Regexp.last_match(4)
       )
     when /^H (\d+) (\d+) (\d+) ([A-Z])$/
-      no_bitmap_error unless @bitmap
-
-      draw_horizontal_line(
+      Commands::DrawHorizontalLine.new(
+        bitmap: @bitmap,
         x1: Regexp.last_match(1).to_i,
         x2: Regexp.last_match(2).to_i,
         y: Regexp.last_match(3).to_i,
         colour: Regexp.last_match(4)
       )
     when "S"
-      no_bitmap_error unless @bitmap
-
-      print_bitmap
+      Commands::ShowBitmap.new(bitmap: @bitmap)
     else
       unrecognised_command_error
     end
-    self
   end
 
   private
-
-  def no_bitmap_error
-    raise NoBitmapError, "no bitmap created yet"
-  end
 
   def unrecognised_command_error
     raise UnrecognisedCommandError, "command not valid"

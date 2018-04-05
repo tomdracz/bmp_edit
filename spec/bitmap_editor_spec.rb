@@ -29,15 +29,17 @@ describe BitmapEditor do
     context "with correct file" do
       let(:parser_double) { instance_double("Parser", bitmap: "foo") }
       let(:test_command) { "I 25 25" }
+      let(:command_double) { double("Command") }
 
       before do
         allow(File).to receive(:exist?).and_return(true)
         allow(File).to receive(:open).and_return([test_command])
       end
 
-      it "passes the command to parser instance" do
+      it "passes the inpit to parser instance, gets the command and executes it" do
         allow(Parser).to receive(:new).and_return(parser_double)
-        allow(parser_double).to receive(:parse_input).and_return(parser_double)
+        allow(parser_double).to receive(:parse_input).and_return(command_double)
+        allow(command_double).to receive(:execute)
 
         subject.run("FOO")
         expect(parser_double).to have_received(:parse_input).with(test_command)
