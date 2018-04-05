@@ -36,7 +36,7 @@ describe BitmapEditor do
         allow(File).to receive(:open).and_return([test_command])
       end
 
-      it "passes the inpit to parser instance, gets the command and executes it" do
+      it "passes the input to parser instance, gets the command and executes it" do
         allow(Parser).to receive(:new).and_return(parser_double)
         allow(parser_double).to receive(:parse_input).and_return(command_double)
         allow(command_double).to receive(:execute)
