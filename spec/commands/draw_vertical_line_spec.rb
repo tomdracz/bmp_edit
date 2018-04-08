@@ -1,10 +1,10 @@
 require_relative "../../lib/commands/draw_vertical_line"
 
 describe Commands::DrawVerticalLine do
-  let(:subject) { described_class.new(bitmap: bitmap, x: 1, y1: 2, y2: 3, colour: "A") }
+  let(:subject) { described_class.prepare(bitmap: bitmap, x: 1, y1: 2, y2: 3, colour: "A") }
   let(:bitmap) { instance_double("bmp") }
 
-  describe "#initialize" do
+  describe "#prepare" do
     it "accepts bitmap, x1, x2, y and colour as arguments" do
       expect(subject.bitmap).to eq(bitmap)
       expect(subject.x).to eq(1)

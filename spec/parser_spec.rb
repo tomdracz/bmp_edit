@@ -18,7 +18,7 @@ describe Parser do
       let(:bitmap) { nil }
 
       it "returns an instance of CreateBitmap command" do
-        expect(Commands::CreateBitmap).to receive(:new).and_return(command_double)
+        expect(Commands::CreateBitmap).to receive(:prepare).and_return(command_double)
         expect(subject.parse_input("I 5 6")).to eq(command_double)
       end
     end
@@ -27,7 +27,7 @@ describe Parser do
       let(:command) { "C" }
 
       it "returns an instance of ClearPixels command" do
-        expect(Commands::ClearPixels).to receive(:new).
+        expect(Commands::ClearPixels).to receive(:prepare).
           with(bitmap: bitmap).
             and_return(command_double)
         expect(subject.parse_input(command)).to eq(command_double)
@@ -38,7 +38,7 @@ describe Parser do
       let(:command) { "L 1 3 A" }
 
       it "returns an instance of ColourPixel command" do
-        expect(Commands::ColourPixel).to receive(:new).
+        expect(Commands::ColourPixel).to receive(:prepare).
           with(bitmap: bitmap, x: 1, y: 3, colour: "A").
             and_return(command_double)
         expect(subject.parse_input(command)).to eq(command_double)
@@ -49,7 +49,7 @@ describe Parser do
       let(:command) { "V 2 3 6 W" }
 
       it "returns an instance of DrawVerticalLine command" do
-        expect(Commands::DrawVerticalLine).to receive(:new).
+        expect(Commands::DrawVerticalLine).to receive(:prepare).
           with(bitmap: bitmap, x: 2, y1: 3, y2: 6, colour: "W").
             and_return(command_double)
         expect(subject.parse_input(command)).to eq(command_double)
@@ -60,7 +60,7 @@ describe Parser do
       let(:command) { "H 3 5 2 Z" }
 
       it "returns an instance of DrawHorizontalLine command" do
-        expect(Commands::DrawHorizontalLine).to receive(:new).
+        expect(Commands::DrawHorizontalLine).to receive(:prepare).
           with(bitmap: bitmap, x1: 3, x2: 5, y: 2, colour: "Z").
             and_return(command_double)
         expect(subject.parse_input(command)).to eq(command_double)
@@ -71,7 +71,7 @@ describe Parser do
       let(:command) { "S" }
 
       it "calls the command to output the contents of the current image" do
-        expect(Commands::ShowBitmap).to receive(:new).
+        expect(Commands::ShowBitmap).to receive(:prepare).
           with(bitmap: bitmap).
             and_return(command_double)
         expect(subject.parse_input(command)).to eq(command_double)

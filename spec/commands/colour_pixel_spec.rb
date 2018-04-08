@@ -1,10 +1,10 @@
 require_relative "../../lib/commands/colour_pixel"
 
 describe Commands::ColourPixel do
-  let(:subject) { described_class.new(bitmap: bitmap, x: 1, y: 2, colour: "A") }
+  let(:subject) { described_class.prepare(bitmap: bitmap, x: 1, y: 2, colour: "A") }
   let(:bitmap) { instance_double("bmp") }
 
-  describe "#initialize" do
+  describe "#prepare" do
     it "accepts bitmap, x, y and colour as arguments" do
       expect(subject.bitmap).to eq(bitmap)
       expect(subject.x).to eq(1)

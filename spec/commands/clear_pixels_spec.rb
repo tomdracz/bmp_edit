@@ -1,10 +1,10 @@
 require_relative "../../lib/commands/clear_pixels"
 
 describe Commands::ClearPixels do
-  let(:subject) { described_class.new(bitmap: bitmap) }
+  let(:subject) { described_class.prepare(bitmap: bitmap) }
   let(:bitmap) { instance_double("bmp") }
 
-  describe "#initialize" do
+  describe "#prepare" do
     it "accepts bitmap as an argument" do
       expect(subject.bitmap).to eq(bitmap)
     end

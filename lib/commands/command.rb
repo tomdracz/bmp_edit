@@ -2,14 +2,16 @@ require_relative "../bitmap"
 
 module Commands
   class Command
-    def execute
-      raise NotImplementedError, "execute method must be implemented"
-    end
+    class << self
+      def execute
+        raise NotImplementedError, "execute method must be implemented"
+      end
 
-    private
+      private
 
-    def no_bitmap_error
-      raise NoBitmapError, "no bitmap created yet"
+      def no_bitmap_error
+        raise NoBitmapError, "no bitmap created yet"
+      end
     end
   end
 end

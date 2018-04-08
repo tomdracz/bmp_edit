@@ -16,21 +16,21 @@ class Parser
   def parse_input(input_line)
     case input_line
     when /^I (\d+) (\d+)$/
-      Commands::CreateBitmap.new(
+      Commands::CreateBitmap.prepare(
         width: Regexp.last_match[1].to_i,
         height: Regexp.last_match(2).to_i
       )
     when "C"
-      Commands::ClearPixels.new(bitmap: @bitmap)
+      Commands::ClearPixels.prepare(bitmap: @bitmap)
     when /^L (\d+) (\d+) ([A-Z])$/
-      Commands::ColourPixel.new(
+      Commands::ColourPixel.prepare(
         bitmap: @bitmap,
         x: Regexp.last_match(1).to_i,
         y: Regexp.last_match(2).to_i,
         colour: Regexp.last_match(3)
       )
     when /^V (\d+) (\d+) (\d+) ([A-Z])$/
-      Commands::DrawVerticalLine.new(
+      Commands::DrawVerticalLine.prepare(
         bitmap: @bitmap,
         x: Regexp.last_match(1).to_i,
         y1: Regexp.last_match(2).to_i,
@@ -38,7 +38,7 @@ class Parser
         colour: Regexp.last_match(4)
       )
     when /^H (\d+) (\d+) (\d+) ([A-Z])$/
-      Commands::DrawHorizontalLine.new(
+      Commands::DrawHorizontalLine.prepare(
         bitmap: @bitmap,
         x1: Regexp.last_match(1).to_i,
         x2: Regexp.last_match(2).to_i,
@@ -46,7 +46,7 @@ class Parser
         colour: Regexp.last_match(4)
       )
     when "S"
-      Commands::ShowBitmap.new(bitmap: @bitmap)
+      Commands::ShowBitmap.prepare(bitmap: @bitmap)
     else
       unrecognised_command_error
     end
